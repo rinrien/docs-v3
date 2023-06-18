@@ -14,6 +14,7 @@ module.exports = {
     onBrokenMarkdownLinks: 'warn',
     favicon: 'img/favicon.png',
     organizationName: 'BotiCord',
+    editUrl: "https://github.com/boticord/docs-v3/edit/main/",
     projectName: 'BotiCord.top Public API',
     themeConfig: {
         metadata: [{
