@@ -19,12 +19,13 @@ jobs:
         name: Checkout docs
         with:
           path: docs
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.BOTICORDAC_TOKEN }}
       - uses: actions/checkout@v3
         name: Checkout locales
         with:
           path: locales
           repository: boticord/localization
+          token: ${{ secrets.BOTICORDAC_TOKEN }}
       - name: Specify the Git global safe directory
         run: git config --global --add safe.directory ${GITHUB_WORKSPACE}
       - name: Generate some shit for Crowdin
@@ -36,11 +37,11 @@ jobs:
           cp -r docs ./locale/ru/docusaurus-plugin-content-docs/current
           cd ..
           cp -r ./docs/locale/ru/* ./locales
-      - name: Push
-        uses: s0/git-publish-subdir-action@develop
-        env:
-          REPO: git@github.com:boticord/localization.git
-          BRANCH: main
-          FOLDER: locales
-          SSH_PRIVATE_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          MESSAGE: "chore: pull locales"
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        name: Push changes
+        with:
+          repository: frontend
+          commit_message: 'chore: pull locales'
+          commit_user_name: BoticordAC
+          commit_user_email: bc@livixx.me
+          commit_author: BoticordAC <bc@livixx.me>
