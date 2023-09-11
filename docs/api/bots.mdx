@@ -13,41 +13,41 @@ Get information about the bot
 
 | Type | Endpoint  | Parameters        | Result                      |
 |------|-----------|-------------------|-----------------------------|
-| GET  | /bots/:id | :id-ID of the bot | [ResourceBot](#ResourceBot) |
+| GET  | /bots/:id | :id-ID of the bot | [ResourceBot](#resourcebot) |
 
 ## POST bot stats {#stats}
 
 | Type | Endpoint        | Parameters        | Request Body                      | Request Headers | Result                      |
 |------|-----------------|-------------------|-----------------------------------|-----------------|-----------------------------|
-| POST | /bots/:id/stats | :id-ID of the bot | [UpdateBotStats](#UpdateBotStats) | Authorization   | [ResourceBot](#ResourceBot) |
+| POST | /bots/:id/stats | :id-ID of the bot | [UpdateBotStats](#updatebotstats) | Authorization   | [ResourceBot](#resourcebot) |
 
 # Data Types {#types}
 
 ## ResourceBot
-| Property                 | Type                                                  | Description                             |
-|--------------------------|-------------------------------------------------------|-----------------------------------------|
-| id                       | string                                                | Bot ID                                  |
-| name                     | string                                                | Bot name                                |
-| shortDescription         | string                                                | Bot short description                   |
-| description              | string                                                | Bot description                         |
-| avatar?                  | string                                                | Bot avatar                              |
-| shortLink?               | string                                                | Short link to the bot                   |
-| inviteLink               | string                                                | Invitation link                         |
-| owner                    | string                                                | ID of the bot owner                     |
-| status                   | [ResourceStatus](/api/#ResourceStatus)          | Status in BotiCord search               |
-| ratings                  | array of [ResourceRating](/api/#ResourceRating) | Bot rating                              |
-| prefix                   | string                                                | Bot prefix                              |
-| discriminator            | string                                                | Bot discriminator (deprecated)          |
-| createdDate              | string                                                | Creation date & time                    |
-| supportServerInviteLink? | string                                                | Bot discord server invite link          |
-| library?                 | [Library](#library)                                   | The library on which the bot is written |
-| guilds?                  | number                                                | Server count                            |
-| shards?                  | number                                                | Gateway shard count                     |
-| members?                 | number                                                | User count                              |
-| website?                 | string                                                | Website link                            |
-| tags                     | array of [Tag](#tags)                                 | Bot tags                                |
-| developers               | array of [PartialUser](/api/profiles#PartialUser)     | Bot developers                          |
-| upCount                  | number                                                | UP count                                |
+| Property                 | Type                                              | Description                             |
+|--------------------------|---------------------------------------------------|-----------------------------------------|
+| id                       | string                                            | Bot ID                                  |
+| name                     | string                                            | Bot name                                |
+| shortDescription         | string                                            | Bot short description                   |
+| description              | string                                            | Bot description                         |
+| avatar?                  | string                                            | Bot avatar                              |
+| shortLink?               | string                                            | Short link to the bot                   |
+| inviteLink               | string                                            | Invitation link                         |
+| owner                    | string                                            | ID of the bot owner                     |
+| status                   | [ResourceStatus](/api/#resourcestatus)            | Status in BotiCord search               |
+| ratings                  | array of [ResourceRating](/api/#resourcerating)   | Bot rating                              |
+| prefix                   | string                                            | Bot prefix                              |
+| discriminator            | string                                            | Bot discriminator (deprecated)          |
+| createdDate              | string                                            | Creation date & time                    |
+| supportServerInviteLink? | string                                            | Bot discord server invite link          |
+| library?                 | [Library](#library)                               | The library on which the bot is written |
+| guilds?                  | number                                            | Server count                            |
+| shards?                  | number                                            | Gateway shard count                     |
+| members?                 | number                                            | User count                              |
+| website?                 | string                                            | Website link                            |
+| tags                     | array of [Tag](#tags)                             | Bot tags                                |
+| developers               | array of [PartialUser](/api/profiles#partialuser) | Bot developers                          |
+| upCount                  | number                                            | UP count                                |
 
 ---
 

@@ -13,7 +13,7 @@ Get user profile
 
 | Type | Endpoint    | Result                      |
 |------|-------------|-----------------------------|
-| GET  | /users/:id	 | [UserProfile](#UserProfile) |
+| GET  | /users/:id	 | [UserProfile](#userprofile) |
 
 # Data types {#types}
 
@@ -25,10 +25,10 @@ Get user profile
 | discriminator     | string                                        | User discriminator (deprecated) |
 | avatar?           | string                                        | User avatar                     |
 | id                | string                                        | User ID                         |
-| badges            | array of [UserBadge](#UserBadge)              | User badges                     |
-| bots              | array of [PartialBot](/api/bots#ResourceBot)  | User bots                       |
-| servers           | [PartialServer](/api/servers/#ResourceServer) | User servers                    |
-| socials?          | [UserLinkTypes](#UserLinkTypes)               | User social links               |
+| badges            | array of [UserBadge](#userbadge)              | User badges                     |
+| bots              | array of [PartialBot](/api/bots#resourcebot)  | User bots                       |
+| servers           | [PartialServer](/api/servers/#resourceserver) | User servers                    |
+| socials?          | [UserLinkTypes](#userlinktypes)               | User social links               |
 | description?      | string                                        | Profile description             |
 | shortDescription? | string                                        | Short profile description       |
 
@@ -36,7 +36,7 @@ Get user profile
 
 ## PartialUser
 
-Same as [UserProfile](#UserProfile), but without `badges` `bots` `servers` properties.
+Same as [UserProfile](#userprofile), but without `badges` `bots` `servers` properties.
 
 ---
 
