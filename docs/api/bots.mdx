@@ -1,136 +1,104 @@
 ---
-title: Боты
-description: Документация для взаимодействия с ботами
+title: Bots
+description: Interact with BotiCord bots
 ---
 
-# Методы
+# API methods
 
-## Информация о боте {#fetch}
+## GET bot {#fetch}
 
-Данный метод возвращает информацию об указанном боте
+Get information about the bot
 
-### Параметры запроса {#params}
+### Request params {#params}
 
-| Тип | Путь      | Параметры      | 	Результат	                 |
-|-----|-----------|----------------|-----------------------------|
-| GET | /bots/:id | :id - ID бота	 | [ResourceBot](#resourcebot) |
+| Type | Endpoint  | Parameters        | Result                      |
+|------|-----------|-------------------|-----------------------------|
+| GET  | /bots/:id | :id-ID of the bot | [ResourceBot](#ResourceBot) |
 
-## Отправка статистики {#stats}
+## POST bot stats {#stats}
 
-| Тип 	  | Путь      			   | Параметры 		   | 	Тело							                       | 	Заголовки				 | Результат	                  |
-|--------|-----------------|----------------|------------------------------------|----------------|-----------------------------|
-| 	POST	 | /bots/:id/stats | :id - ID бота	 | [UpdateBotStats](#updatebotstats)	 | 	Authorization | [ResourceBot](#resourcebot) |
+| Type | Endpoint        | Parameters        | Request Body                      | Request Headers | Result                      |
+|------|-----------------|-------------------|-----------------------------------|-----------------|-----------------------------|
+| POST | /bots/:id/stats | :id-ID of the bot | [UpdateBotStats](#UpdateBotStats) | Authorization   | [ResourceBot](#ResourceBot) |
 
-# Типы данных {#types}
+# Data Types {#types}
 
 ## ResourceBot
-| 	Поле	                     | 	Тип			                                    | 	Описание	                |
-|----------------------------|--------------------------------------------|---------------------------|
-| 	id		                      | 	строка	                                   | 	ID бота	                 |
-| 	name	                     | 	строка	                                   | Имя бота	                 |
-| 	shortDescription	         | 	строка	                                   | Короткое описание	        |
-| 	description	              | 	строка	                                   | Описание бота	            |
-| 	avatar?	                  | 	строка	                                   | Аватар бота               |
-| 	shortLink?	               | строка	                                    | Короткая ссылка на бота	  |
-| 	inviteLink	               | 	строка	                                   | Ссылка-приглашение	       |
-| 	premiumActive	            | 	true/false	                               | 	Статус премиума	         |
-| 	premiumSplashURL?	        | 	строка	                                   | 	Ссылка на сплеш	         |
-| 	premiumAutoFetch?	        | 	true/false	                               | Автообовление информации	 |
-| 	standardBannerID	         | 	число	                                    | ID стандартного баннера 	 |
-| 	premiumBannerURL?	        | 	строка	                                   | URL Премиум баннера бота	 |
-| 	owner	                    | 	строка	                                   | Владелец бота	            |
-| 	status	                   | 	[ResourceStatus](#resourcestatus)         | Статус бота               |
-| 	ratings	                  | 	массив [ResourceRating](#resourcerating)	 | Рейтинг бота              |
-| 	prefix	                   | 	строка	                                   | Префикс бота	             |
-| 	discriminator	            | 	строка	                                   | Дискриминатор бота	       |
-| 	createdDate	              | 	строка	                                   | Дата создания	            |
-| 	supportServerInviteLink?	 | 	строка                                    | Ссылка на саппорт сервер	 |
-| 	library?	                 | 	[Library](#library)	                      | 	Библиотека бота	         |
-| 	guilds?	                  | 	число	                                    | Количество серверов	      |
-| 	shards?	                  | 	число	                                    | Количество шардов	        |
-| 	members?	                 | число	                                     | Количество пользователей	 |
-| 	website?	                 | 	строка	                                   | 	Ссылка на сайт	          |
-| 	tags	                     | 	массив [Tags](#tags)	                     | 	Теги бота	               |
-| 	developers	               | 	массив [PartialUser](#partialuser)	       | 	Разработчики бота	       |
-| 	upCount	                  | 	число	                                    | Количество апов	          |
-
----
-
-## ResourceStatus
-
-Статус бота на мониторинге
-
-| Код	 | 	Имя	    | 	Описание	           |
-|------|----------|----------------------|
-| 0	   | 	Hidden	 | 	Бот скрыт	          |
-| 	1	  | 	Public	 | 	Бот на мониторинге	 |
-| 	2	  | 	Banned	 | Бот заблокирован	    |
-| 3	   | Pending  | Бот ожидает проверки |
-
-## ResourceRating
-
-Рейтинг бота
-
-| Поле   | Тип	  | Описание          |
-|--------|-------|-------------------|
-| count  | число | Количество оценок |
-| rating | число | Рейтинг от 1 до 5 |
+| Property                 | Type                                                  | Description                             |
+|--------------------------|-------------------------------------------------------|-----------------------------------------|
+| id                       | string                                                | Bot ID                                  |
+| name                     | string                                                | Bot name                                |
+| shortDescription         | string                                                | Bot short description                   |
+| description              | string                                                | Bot description                         |
+| avatar?                  | string                                                | Bot avatar                              |
+| shortLink?               | string                                                | Short link to the bot                   |
+| inviteLink               | string                                                | Invitation link                         |
+| owner                    | string                                                | ID of the bot owner                     |
+| status                   | [ResourceStatus](/api/index/#ResourceStatus)          | Status in BotiCord search               |
+| ratings                  | array of [ResourceRating](/api/index/#ResourceRating) | Bot rating                              |
+| prefix                   | string                                                | Bot prefix                              |
+| discriminator            | string                                                | Bot discriminator (deprecated)          |
+| createdDate              | string                                                | Creation date & time                    |
+| supportServerInviteLink? | string                                                | Bot discord server invite link          |
+| library?                 | [Library](#library)                                   | The library on which the bot is written |
+| guilds?                  | number                                                | Server count                            |
+| shards?                  | number                                                | Gateway shard count                     |
+| members?                 | number                                                | User count                              |
+| website?                 | string                                                | Website link                            |
+| tags                     | array of [Tag](#tags)                                 | Bot tags                                |
+| developers               | array of [PartialUser](/api/profiles#PartialUser)     | Bot developers                          |
+| upCount                  | number                                                | UP count                                |
 
 ---
 
 ## Tags
 
-Теги бота
+Bot Tags
 
-| Код  | Имя           |
-|------|---------------|
-| 	0	  | 	Модерация	   |
-| 	1	  | 	Комбайн	     |
-| 	2	  | 	Утилиты	     |
-| 	3	  | 	Развлечения	 |
-| 	4	  | 	Музыка	      |
-| 	5	  | 	Экономика	   |
-| 	6	  | 	Логи	        |
-| 	7	  | 	Уровни	      |
-| 	8	  | 	NSFW (18+)	  |
-| 	9	  | 	Настройка	   |
-| 	10	 | 	Role-Play	   |
-| 	11	 | 	Мемы	        |
-| 	12	 | 	Игры	        |
-| 	13	 | 	AI	          |
+| Code | Name                      |
+|------|---------------------------|
+| 0    | Moderation                |
+| 1    | Multifunctional (combine) |
+| 2    | Util                      |
+| 3    | Fun                       |
+| 4    | Music                     |
+| 5    | Economy                   |
+| 6    | Logs                      |
+| 7    | Levels                    |
+| 8    | NSFW (18+)                |
+| 9    | Customizable              |
+| 10   | Role-Play                 |
+| 11   | Memes                     |
+| 12   | Games                     |
+| 13   | AI                        |
 
 ---
 
 ## UpdateBotStats
 
-Данные статистки бота
+Bot stats
 
-| Поле			    | Тип		  | 	Описание											           |
-|------------|--------|--------------------------------|
-| 	members?	 | число	 | Количество пользователей бота	 |
-| servers?		 | число	 | 	Количество серверов бота			   |
-| shards?		  | число  | Количество шардов бота				     |
+| Property | Type   | Description          |
+|----------|--------|----------------------|
+| members? | number | Users count          |
+| servers? | number | Servers count        |
+| shards?  | number | Gateway shards count |
 
 ## Library
 
-Библиотеки ботов
+The library on which the bot is written
 
-| Код  | Имя           |
-|------|---------------|
-| 	1	  | 	Discord4J	   |
-| 	2	  | 	Discordcr	   |
-| 	3	  | 	DiscordGO	   |
-| 	4	  | 	Discordoo	   |
-| 	5	  | 	DSharpPlus	  |
-| 	6	  | 	Discord.js	  |
-| 	7	  | 	Discord.Net	 |
-| 	8	  | 	Discord.py	  |
-| 	9	  | 	Eris	        |
-| 	10	 | 	Javacord	    |
-| 	11	 | 	JDA	         |
-| 12	  | 	Other        |
-
-## PartialUser
-
-Тип PartialUser использует свойства из [UserProfile](/api/profiles#userprofile), но не имеет в себе
-свойств `badges` `bots` `servers`
+| Code | Name        |
+|------|-------------|
+| 1    | Discord4J   |
+| 2    | Discordcr   |
+| 3    | DiscordGO   |
+| 4    | Discordoo   |
+| 5    | DSharpPlus  |
+| 6    | Discord.js  |
+| 7    | Discord.Net |
+| 8    | Discord.py  |
+| 9    | Eris        |
+| 10   | Javacord    |
+| 11   | JDA         |
+| 12   | Other       |

@@ -1,75 +1,71 @@
 ---
-title: Поиск по сайту
-description: Информация по поиску на сайте
+title: Search within BotiCord
+description: Documentation about the search inside the site
 published: true
 ---
 
-# Поиск {#head}
+# Search {#head}
 
-Для поиска ботов, серверов и комментариев мы используем сервис [Meilisearch](https://www.meilisearch.com).
-Ознакомиться со всеми методами поиска вы можете [здесь](https://www.meilisearch.com/docs/reference/api/overview)
+To search for bots, servers and reviews, we use the [Meilisearch](https://www.meilisearch.com) service.
+You can get acquainted with all the search methods [here](https://www.meilisearch.com/docs/reference/api/overview)
 
-Получить ключ для поиска можно с помощью метода `GET /search-key`
+You can get the key for the search using the method `GET /search-key`
 
-# Индексы поиска {#indexses}
+# Search indexes {#indexes}
 
-| Имя 			    | Описание							         | Данные	                                      |
-|------------|-------------------------|----------------------------------------------|
-| 	bots			   | Поиск по ботам				      | [MeiliIndexedBot](#meiliindexedbot)	         |
-| 	servers		 | Поиск по серверам			    | [MeiliIndexedServer](#meiliindexedserver)	   |
-| comments	  | 	Поиск по комментариям	 | [MeiliIndexedComment](#meiliindexedcomment)	 |
+| Name     | Description    | Data                                        |
+|----------|----------------|---------------------------------------------|
+| bots     | Search bots    | [MeiliIndexedBot](#meiliindexedbot)         |
+| servers  | Search servers | [MeiliIndexedServer](#meiliindexedserver)   |
+| comments | Search reviews | [MeiliIndexedComment](#meiliindexedcomment) |
 
-# Типы данных {#types}
+# Data types {#types}
 
 ## MeiliIndexedComment
 
-| 	Поле	     | 	Тип	    | 	Описание	                      |
-|------------|----------|---------------------------------|
-| 	id		      | строка	  | ID комментария в базе	          |
-| 	author	   | строка	  | ID автора комментария	          |
-| 	content	  | строка	  | Текст комментария               |
-| rating	    | 	число	  | Оценка комментария (от 1 до 5)	 |
-| 	resource	 | строка	  | ID бота/сервера	                |
-| 	created	  | 	строка	 | Дата создания комментария       |
-| modReply   | строка   | Ответ на коментарий             |
+| Property | Type   | Description                   |
+|----------|--------|-------------------------------|
+| id       | string | Review ID                     |
+| author   | string | Author ID                     |
+| content  | string | Review content                |
+| rating   | number | Review rating (from 1 to 5)   |
+| resource | string | Bot/Server ID                 |
+| created  | string | Date the review was created   |
+| modReply | string | Reply to the review from mods |
+
+---
 
 ## MeiliIndexedServer
 
-| 	Поле	             | 	Тип			                                | 	Описание	                 |
-|--------------------|----------------------------------------|----------------------------|
-| 	id		              | строка 	                               | ID Сервера                 |
-| 	name	             | строка	                                | Название сервера	          |
-| 	description	      | строка	                                | Описание сервера	          |
-| 	shortDescription	 | строка	                                | Короткое описание сервера	 |
-| 	invite	           | строка	                                | Приглашение на сервер	     |
-| 	avatar?	          | строка	                                | Аватар сервера             |
-| premiumActive	     | true/false                             | Наличие Premium статуса    |
-| 	ups	              | число	                                 | Количество апов	           |
-| 	created	          | число 	                                | Дата создания	             |
-| 	rating	           | число	                                 | Рейтинг сервера	           |
-| 	members?	         | число	                                 | Количество участников	     |
-| 	banner	           | число	                                 | ID баннера сайта	          |
-| 	discordBanner?	   | строка	                                | Discord баннер сервера	    |
-| 	tags	             | массив [ServerTags](/api/servers#tags) | Теги сервера	              |
+| Property         | Type                                    | Description                                    |
+|------------------|-----------------------------------------|------------------------------------------------|
+| id               | string                                  | Server ID                                      |
+| name             | string                                  | Server name                                    |
+| description      | string                                  | Server description (with raw HTML & MD)        |
+| shortDescription | string                                  | Short server description (without HTML and MD) |
+| invite           | string                                  | Server invite code (discord.gg/HERE)           |
+| avatar?          | string                                  | Server icon                                    |
+| ups              | number                                  | Up Count                                       |
+| rating           | number                                  | Average server rating                          |
+| members?         | number                                  | Server member count                            |
+| banner           | number                                  | Standard banner ID                             |
+| discordBanner?   | string                                  | Discord banner link                            |
+| tags             | array of [ServerTag](/api/servers#tags) | Server tags                                    |
+
+---
 
 ## MeiliIndexedBot
 
-| 	Поле	             | 	Тип			                          | 	Описание	                 |
-|--------------------|----------------------------------|----------------------------|
-| 	id		              | строка 	                         | ID бота                    |
-| 	name	             | строка	                          | Имя бота	                  |
-| 	discriminator	    | строка	                          | Дискриминатор бота	        |
-| 	description	      | строка	                          | Описание бота 	            |
-| 	shortDescription	 | строка	                          | Короткое описание бота	    |
-| 	invite	           | строка	                          | Приглашение бота	          |
-| 	avatar?	          | строка	                          | Аватар бота                |
-| premiumActive	     | true/false                       | Наличие Premium статуса    |
-| 	premiumBanner?	   | строка                           | Баннер бота                |
-| 	ups	              | число	                           | Количество апов	           |
-| 	created	          | число 	                          | Дата создания	             |
-| 	rating	           | число	                           | Рейтинг бота	              |
-| 	banner	           | число	                           | ID баннера сайта	          |
-| 	members?	         | число	                           | 	Количество пользователей	 |
-| 	guilds?	          | 	число	                          | Количество серверов	       |
-| 	shards?	          | 	число	                          | Количество шардов	         |
-| 	tags	             | массив [BotTags](/api/bots#tags) | Теги бота	                 |
+| Property         | Type                              | Description                               |
+|------------------|-----------------------------------|-------------------------------------------|
+| id               | string                            | Bot ID                                    |
+| name             | string                            | Bot name                                  |
+| description      | string                            | Bot description (with raw HTML & MD)      |
+| shortDescription | string                            | Short bot description (without HTML & MD) |
+| invite           | string                            | Bot invite link                           |
+| avatar?          | string                            | Bot avatar                                |
+| ups              | number                            | Up Count                                  |
+| rating           | number                            | Average bot rating                        |
+| banner           | number                            | Standard banner ID                        |
+| guilds?          | number                            | Bot server count                          |
+| tags             | array of [BotTag](/api/bots#tags) | Bot tags                                  |

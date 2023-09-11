@@ -72,7 +72,7 @@ module.exports = {
             style: 'dark',
             links: [
                 {
-                    title: 'Документация',
+                    title: 'Documentation',
                     items: [
                         {
                           label: 'Contributing',
@@ -89,24 +89,24 @@ module.exports = {
                     ],
                 },
                 {
-                    title: 'Сообщество',
+                    title: 'Community',
                     items: [
                         {
                             label: 'GitHub',
                             href: 'https://github.com/boticord',
                         },
                         {
-                            label: 'Сайт',
+                            label: 'BotiCord',
                             href: 'https://boticord.top',
                         },
                         {
-                            label: 'Поддержка',
-                            href: 'https://boticord.top/discord',
+                            label: 'Support',
+                            href: 'https://get.boticord.top/support',
                         }
                     ],
                 },
             ],
-            copyright: `Все права защищены. © 2020-${new Date().getFullYear()} BotiCord.top`,
+            copyright: `All right reserved. © 2020-${new Date().getFullYear()} BotiCord.top`,
         },
         prism: {
             theme: lightCodeTheme,
@@ -153,34 +153,9 @@ module.exports = {
             /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
             ({
                 hashed: true,
-                language: ["en", "ru"],
+                language: ["en"],
                 docsRouteBasePath: "/",
             })
         ]
-    ],
-    i18n: {
-        defaultLocale: 'ru',
-        locales: ['ru','en','by','ua','de','pl'],
-        path: 'locale',
-        localeConfigs: {
-            ru: {
-                label: 'Русский',
-            },
-            en: {
-                label: 'English',
-            },
-            by: {
-                label: "Беларуская"
-            },
-            ua: {
-                label: "Українська"
-            },
-            de: {
-                label: "Deutsch"
-            },
-            pl: {
-                label: "Polski"
-            }
-        }
-    },
+    ]
 };

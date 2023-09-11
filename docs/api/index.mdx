@@ -1,59 +1,49 @@
 ---
-title: Введение в API
-description: Основы работы с API
+title: Introduction
+description: API basics
 slug: /api
 ---
 
-# Построение запросов {#build-req}
-:::info Базовый URL-API:
+# Making requests {#build-req}
+:::info Base API URL:
 https://api.boticord.top/
 :::
 
-# Версии API {#versions}
-| Версия | URL                         | Статус   |
-|--------|-----------------------------|----------|
-| 3      | https://api.boticord.top/v3 | Активна  |
-| 2      | https://api.boticord.top/v2 | Устарела |
-| 1      | https://api.boticord.top/v1 | Устарела |
+# API Versions {#versions}
+| Version | URL                         | State    |
+|---------|-----------------------------|----------|
+| 3       | https://api.boticord.top/v3 | Active   |
+| 2       | https://api.boticord.top/v2 | Inactive |
+| 1       | https://api.boticord.top/v1 | Inactive |
 
-# Авторизация {#auth}
-Большинство API-методов требуют указания API-токена авторизации. Он передаётся в заголовке `Authorization`.
-Пример:
+# Required Params {#required-params}
+Any POST & PUT requests should have `Content-Type` header with `application/json` value.
+Otherwise, you will get an HTTP error 500 (`UnknownError`).
+
+# Authorization & Authentication {#auth}
+Most API methods require specifying an API token within `Authorization` header.
+Example:
 ```
-Authorization: Token
+curl -X POST -H 'Authorization: Token' https://api.boticord.top/v3/bots/:id/stats --data-raw '{"servers":100}'
 ```
-Где вместо `Token` ваш ключ.
+Where `Token` is your key.
 
-# Обязательные параметры {#required-params}
-В любых POST запросах обязательно должен присутствовать заголовок (header) `Content-Type` со значением `application/json`.
-В ином случае вы получите ошибку 500 (`UnknownError`).
+## Getting an API key {#key}
+Follow these steps to get an API key:
+1. Go to [your profile](https://boticord.top/me).
+2. Click on `settings` icon.
+3. Click on `API` tab.
+4. Click on `Generate` button at the bottom of the page.
+5. Copy your key.
+**This token is valid only for bots and servers owned by the account that generated it**
 
-## Получение API ключа {#key}
-Чтобы получить API ключ:
-1. Перейдите в свой профиль.
-2. Откройте настройки профиля.
-3. Перейдите на вкладку `Настройки API`.
-4. Нажмите на кнопку `Сгенерировать ключ` (почти в самом низу).
-5. Скопируйте ключ и используйте его в запросах.
-**Данный токен действителен только для ботов и серверов, которыми владеет аккаунт, сгенерировавший его**
-
-# Рейтлимиты {#rate-limit}
-:::caution Внимание
-При превышении лимитов, ваши запросы будут временно заблокированы. При злоупотреблении вы можете получить перманентную блокировку к ресурсу.
+# Rate Limits {#rate-limit}
+:::caution Warning
+If you exceed the request limit, you will be temporarily blocked. In case of abuse, you can get a permanent lock to the resource.
 :::
-Глобальный лимит: 25 запросов за 10 секунд. В случае превышения блокировка составляет 10 секунд.
+Global rate limit is 25 requests per 10 seconds. If you exceed this limit, you will receive HTTP error 429.
 
-# Статус коды {#status-code}
-| Код | Описание                  |
-|-----|---------------------------|
-| 500 | Ошибка сервера (>500)     |
-| 429 | Слишком быстрые запросы   |
-| 404 | Не найдено                |
-| 403 | Ошибка доступа            |
-| 401 | Необходимо авторизоваться |
-| 400 | Плохой запрос             |
-
-# Виды ответов {#response}
+# Responses {#response}
 
 ````mdx-code-block
 import Tabs from '@theme/Tabs';
@@ -61,7 +51,7 @@ import TabItem from '@theme/TabItem';
 import CodeBlock from '@theme/CodeBlock';
 
 <Tabs>
-    <TabItem value="200" label="Успешный ответ">
+    <TabItem value="200" label="Successful response">
         <CodeBlock language='json' showLineNumbers>{`{
   "ok": true,
   "result": {
@@ -71,8 +61,8 @@ import CodeBlock from '@theme/CodeBlock';
 `}
         </CodeBlock>
     </TabItem>
-    <TabItem value="50" label="Ошибка 4xx/5xx">
-        При какой-либо ошибке, сервер пришлёт следующие данные:
+    <TabItem value="50" label="Error 4xx/5xx">
+        In case of any non-fatal error, the server will send the following data:
         <CodeBlock language='json' showLineNumbers>{`{
   "ok": false,
   "result": null,
@@ -85,75 +75,96 @@ import CodeBlock from '@theme/CodeBlock';
 }
               `}
         </CodeBlock>
-        Свойство <code>code</code> это номер ошибки из <a href={'#errors'}>таблицы</a>. С помощью этих номеров
-        легко запрограммировать определённый ответ на ошибку (например, перевод). Эти номера никогда не будут меняться,
-        но могут быть добавлены новые.
-        Свойство <code>message</code> это краткое описание ошибки на английском языке для быстрого дебаггинга ошибки.
+        Property <code>code</code> this is the error ID from <a href={'#errors'}>this table</a>. With these numbers
+        it is easy to program a specific response to an error (for example, a translation into human language).
+        These numbers will never change, but new ones may be added.
+        Property <code>message</code> this is a brief description of the error in English for quick debagging of the error.
     </TabItem>
 </Tabs>
 ````
 
 
-## Таблица ошибок {#errors}
-| Код | Имя                             | Описание                                                                            |
-|-----|---------------------------------|-------------------------------------------------------------------------------------|
-| 0   | UnknownError                    | Неизвестная ошибка                                                                  |
-| 1   | InternalServerError             | Ошибка сервера (>500)                                                               |
-| 2   | RateLimited                     | Слишком быстрые запросы                                                             |
-| 3   | NotFound                        | Не найдено                                                                          |
-| 4   | Forbidden                       | Ошибка доступа                                                                      |
-| 5   | BadRequest                      | Плохой запрос                                                                       |
-| 6   | Unauthorized                    | Необходимо авторизоваться                                                           |
-| 7   | RpcError                        | Ошибка сервера (RPC)                                                                |
-| 8   | WsError                         | Ошибка сервера (WS)                                                                 |
-| 9   | ThirdPartyFail                  | Ошибка стороннего сервиса                                                           |
-| 10  | UnknownUser                     | Неизвестный пользователь                                                            |
-| 11  | ShortDomainTaken                | Короткая ссылка уже занята                                                          |
-| 12  | UnknownShortDomain              | Неизвестная короткая ссылка                                                         |
-| 13  | UnknownLibrary                  | Неизвестная библиотека                                                              |
-| 14  | TokenInvalid                    | Токен недействителен                                                                |
-| 15  | UnknownResource                 | Неизвестный ресурс                                                                  |
-| 16  | UnknownTag                      | Неизвестный тег                                                                     |
-| 17  | PermissionDenied                | Недостаточно прав                                                                   |
-| 18  | UnknownComment                  | Неизвестный комментарий                                                             |
-| 19  | UnknownBot                      | Неизвестный бот                                                                     |
-| 20  | UnknownServer                   | Неизвестный сервер                                                                  |
-| 21  | UnknownBadge                    | Неизвестный значок                                                                  |
-| 22  | UserAlreadyHasABadge            | Пользователь уже имеет значок                                                       |
-| 23  | InvalidInviteCode               | Неверный код приглашения                                                            |
-| 24  | ServerAlreadyExists             | Сервер уже существует                                                               |
-| 25  | BotNotPresentOnQueueServer      | Бот отсутствует на служебном сервере                                                |
-| 26  | UnknownUp                       | Неизвестный ап                                                                      |
-| 27  | TooManyUps                      | Слишком много апов                                                                  |
-| 28  | InvalidStatus                   | Неверный статус ресурса                                                             |
-| 29  | UnknownReport                   | Неизвестный репорт                                                                  |
-| 30  | UnsupportedMediaType            | Неверный формат файла, должен быть один из                                          |
-| 31  | UnknownApplication              | Неизвестное приложение                                                              |
-| 32  | AutomatedRequestsNotAllowed     | Система приняла вас за робота                                                       |
-| 33  | InvalidRating                   | Неверный рейтинг                                                                    |
-| 34  | DuplicateBot                    | Бот уже существует                                                                  |
-| 35  | CannotDetectIp                  | Не удалось определить ваш IP                                                        |
-| 36  | ThirdPartyMonitoringFail        | Ошибка стороннего мониторинга                                                       |
-| 37  | ThirdPartyMonitoringNotApproved | Сторонний мониторинг не подтвердил ваше приложение                                  |
-| 38  | TurnstileError                  | Ошибка капчи                                                                        |
-| 39  | ServiceConfiguredIncorrectly    | Сервис настроен неправильно. Обратитесь в поддержку                                 |
-| 40  | UnknownBoost                    | Неизвестный буст                                                                    |
-| 41  | BoostExpired                    | Буст истёк                                                                          |
-| 42  | AlreadyCommented                | Нельзя оставить отзыв дважды                                                        |
-| 43  | ReviewRatingsConflict           | Конфликт сервера с сервером в расчёте рейтинга. Слишком высокий рейтинг отзыва в БД |
-| 44  | TooManyConsecutiveMessages      | Слишком много сообщений подряд                                                      |
-| 45  | NoServiceBot                    | Сервисный бот не приглашён                                                          |
-| 46  | AlreadyReported                 | Вы уже отправили репорт                                                             |
-| 47  | CannotDeleteOwner               | Нельзя удалить владельца                                                            |
-| 48  | BlockedBot                      | Бот заблокирован                                                                    |
-| 49  | UnknownAutomation               | Неизвестный токен автоматизации                                                     |
-| 50  | OnlyOwnerCanAddServer           | Временно только владелец может добавить сервер                                      |
-| 51  | ReviewReported                  | Неразрешённая жалоба на отзыв                                                       |
-| 52  | LowPremiumLevel                 | Низкий уровень бустов                                                               |
-| 53  | CaptchaServiceUnavailable       | Сервис капчи недоступен                                                             |
-| 54  | InvalidCaptchaAnswer            | Неверный ответ на капчу                                                             |
-| 55  | ResourceNotOwned                | Ресурс не принадлежит владельцу токена                                              |
-| 56  | ResourceFetchTimeout            | КД обновления кеша для ресурса                                                      |
-| 57  | CannotFetchOwner                | Не удалось получить владельца                                                       |
+## Error codes {#errors}
 
+| Code | Name                            | Description                                                               |
+|------|---------------------------------|---------------------------------------------------------------------------|
+| 0    | InternalServerError             | Internal server error                                                     |
+| 1    | RateLimited                     | RateLimited                                                               |
+| 2    | NotFound                        | Not found                                                                 |
+| 3    | Forbidden                       | Forbidden                                                                 |
+| 4    | Unauthorized                    | Unauthorized                                                              |
+| 5    | BadRequest                      | Bad request                                                               |
+| 6    | RpcError                        | Rpc error                                                                 |
+| 7    | WsError                         | Websocket error                                                           |
+| 8    | UnknownError                    | Unknown error                                                             |
+| 9    | ThirdPartyFail                  | Third party failed                                                        |
+| 10   | UnknownUser                     | Unknown user                                                              |
+| 11   | ShortLinkTaken                  | Short link was already taken                                              |
+| 12   | UnknownShortDomain              | Unknown short domain                                                      |
+| 13   | UnknownLibrary                  | Unknown library                                                           |
+| 14   | TokenInvalid                    | Token invalid                                                             |
+| 15   | UnknownResource                 | Unknown resource                                                          |
+| 16   | UnknownTag                      | Unknown tag                                                               |
+| 17   | PermissionDenied                | Permission denied: lack of permissions                                    |
+| 18   | UnknownComment                  | Unknown comment                                                           |
+| 19   | UnknownBot                      | Unknown bot                                                               |
+| 20   | UnknownServer                   | Unknown server                                                            |
+| 21   | UnknownBadge                    | Unknown badge                                                             |
+| 22   | UserAlreadyHasABadge            | User already has a badge                                                  |
+| 23   | InvalidInviteCode               | Invalid invite code                                                       |
+| 24   | ServerAlreadyExists             | Server already exists                                                     |
+| 25   | BotNotPresentOnQueueServer      | Bot is not present on queue server                                        |
+| 26   | UnknownUp                       | Unknown up                                                                |
+| 27   | TooManyUps                      | Too many ups                                                              |
+| 28   | InvalidStatus                   | Invalid status                                                            |
+| 29   | UnknownReport                   | Unknown report                                                            |
+| 30   | UnsupportedMediaType            | Unsupported media type                                                    |
+| 31   | UnknownApplication              | Unknown application                                                       |
+| 32   | AutomatedRequestsNotAllowed     | Automated requests are not allowed                                        |
+| 33   | InvalidRating                   | Invalid rating                                                            |
+| 34   | DuplicateBot                    | Bot already exists                                                        |
+| 35   | CannotDetectIp                  | Cannot detect requester ip. Looks like network is not configured properly |
+| 36   | ThirdPartyMonitoringFail        | Third party monitoring is not available                                   |
+| 37   | ThirdPartyMonitoringNotApproved | Third party monitoring is not approved your application                   |
+| 38   | TurnstileError                  | Unknown turnstile captcha error                                           |
+| 39   | ServiceConfiguredIncorrectly    | Service is configured incorrectly. Please contact support                 |
+| 40   | UnknownBoost                    | Unknown boost                                                             |
+| 41   | BoostExpired                    | Boost expired                                                             |
+| 42   | AlreadyCommented                | Cannot post a review twice                                                |
+| 43   | ReviewRatingsConflict           | Server<->Server conflict in the rating. Comment in DB has too high rating |
+| 44   | TooManyConsecutiveMessages      | Too many consecutive messages in chat.                                    |
+| 45   | NoServiceBot                    | No service bot                                                            |
+| 46   | AlreadyReported                 | Already reported                                                          |
+| 47   | CannotDeleteOwner               | Cannot delete owner from developers                                       |
+| 48   | BlockedBot                      | Bot is blocked, unblock it first                                          |
+| 49   | UnknownAutomation               | Unknown automation                                                        |
+| 50   | OnlyOwnerCanAddServer           | Only owner can add server                                                 |
+| 51   | ReviewReported                  | Review has not solved report                                              |
+| 52   | LowPremiumLevel                 | The premium level is too low                                              |
+| 53   | CaptchaServiceUnavailable       | Captcha service is unavailable                                            |
+| 54   | InvalidCaptchaAnswer            | Invalid captcha answer                                                    |
+| 55   | ResourceNotOwned                | Resource is not owned by token owner                                      |
+| 56   | ResourceFetchTimeout            | Resource fetch in rate limit                                              |
+| 57   | CannotFetchOwner                | Cannot fetch owner                                                        |
+| 58   | TooManyCaptchaAttempts          | Too many captcha attempts                                                 |
+| 59   | EmptyReview                     | Cannot send empty review                                                  |
 
+## ResourceStatus
+
+Resource status in BotiCord search
+
+| Code | Name    | Description                                         |
+|------|---------|-----------------------------------------------------|
+| 0    | Hidden  | Staff-only availability                             |
+| 1    | Public  | Publicly available                                  |
+| 2    | Banned  | Staff-only availability + any interactions disabled |
+| 3    | Pending | The moderators are checking the resource            |
+
+## ResourceRating
+
+Resource rating
+
+| Property | Type   | Description        |
+|----------|--------|--------------------|
+| count    | number | Ratings count      |
+| rating   | number | Rating value (1-5) |

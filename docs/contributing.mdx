@@ -1,66 +1,65 @@
 ---
-title: Вклад в проект
-description: Вклад в проект
+title: Contributing
+description: Contributing to BotiCord project
 slug: /contributing
 sidebar_position: 100
 ---
-# Введение {#head}
-Любой желающий может внести свой вклад в развитие проекта. Для этого необходимо следовать следующим правилам:
+# Introduction {#head}
+Anybody can contribute to the project. To do this, you must follow these rules:
 
-## Основное {#main}
-1. Все изменения должны быть четко описаны в Commit\`е и Pull Request\`е.
-2. Ведите себя прилично. Не используйте нецензурную лексику и не оскорбляйте других участников проекта.
-3. Желательно пользоваться английским языком, поскольку является международным языком
+## Main {#main}
+1. All changes must be clearly described in the Commit and Pull Request;
+2. Behave decently. Do not use profanity and do not insult other project participants;
+3. It is advisable to use the English language, as it is an international language.
 
-## Ветки {#branch}
-- `main` - основная ветка проекта
-- `dev` - ветка разработки
+## Branches {#branch}
+- `main` - production branch
+- `dev` - development branch
 
-## Коммиты {#commits}
-Четких правил для коммитов нет, но есть несколько рекомендаций:
-- Комиты должны желательно быть на английском языке
-- Использовать [conventional commits](https://conventionalcommits.org)
+## Commits {#commits}
+There are no clear rules for commits, but there are a few recommendations:
+- Commits should preferably be in English
+- Use [conventional commits](https://conventionalcommits.org)
 
-### Примеры {#example}
-1. <strike>Changed text</strike> ❌ Коммит не описывает, почему изменен текст, где.
-2. **chore(Faq): Added additional answer to the question ** ✅ Идеально!
+### Examples {#example}
+1. <strike>Changed text</strike> ❌ The commit does not describe why the text was changed, where.
+2. **chore(Faq): Added additional answer to the question** ✅ Perfect!
 
+## Docs {#docs}
+Documentation must be written in English language. [Docusaurus](https://docusaurus.io/) is used to write documentation.
 
-## Документация {#docs}
-Документация должна быть написана на русском языке. Для написания документации используется [Docusaurus](https://docusaurus.io/).
-Если вы хотите изменить документацию на другом языке, то используйте [Crowdin](https://crowdin.com/project/boticord).
+## I am a developer of a library for your API, how do I add it to your documentation? {#add-sdk}
+To do this, create a fork of the repository, add the necessary documentation using [Markdown formatting](https://docusaurus.io/docs/markdown-features) and send a Pull Request to our repository.
+To be in the documentation as a separate page, be sure to transfer repository ownership to the organization https://github.com/boticord
 
-## Я разработчик библиотеки для вашего API, как мне добавить её в вашу документацию? {#add-sdk}
-Чтобы это сделать, создайте fork репозитория, добавьте нужную документацию, используя [форматирование Markdown](https://docusaurus.io/docs/markdown-features) и отправьте Pull Request в наш репозиторий.
-Чтобы находится в документации отдельной страницей, обязательно передать репозиторий в организацию https://github.com/boticord
-
-Шаблон страницы в документации для библиотеки:
+Template for the library documentation page:
 ```md
 ---
-title: Имя
-description: Описание
-slug: /sdk/имя
+title: Library name
+description: Basic documentation for the Name library
+slug: /sdk/name
 ---
 
-<описание библиотеки>
+<library description>
 ```
-Форма Pull Request`а:
+
+Template for Pull Request:
 ```md
-Добавлена информация о библиотеке <название библиотеки>
+Added information about the library <library name>
 
-Язык: <язык программирования>
-Библиотека: <название библиотеки>
+Language: <programming language>
+Library: <library name>
 
-<описание библиотеки>
+<library description>
 
-Ссылка на репозиторий: <ссылка на репозиторий>
+Link to repository: <link to repository>
 
-Ссылка на документацию: <ссылка на документацию>
+Link to documentation: <link to documentation>
 
-Ссылка на автора: <ссылка на автора>
+Link to author: <link to author>
 ```
 
 
-## Перевод {#translate}
-Для перевода мы используем [Crowdin](https://crowdin.com/). Если вы хотите помочь с переводом, то перейдите по [ссылке](https://crowdin.com/project/boticord/).
-Изменения файлов в папке `locale` не допускаются.
+## Translations {#translate}
+We use [Crowdin](https://crowdin.com/) for translation. If you want to help with the translation, then follow the [link](https://crowdin.com/project/boticord/).
+Changes to files in the `locale` folder are not allowed.

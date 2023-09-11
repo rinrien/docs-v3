@@ -1,61 +1,66 @@
 ---
-title: Профили
-description: Документация для взаимодействия с профилями
+title: User Profiles
+description: Information about user profiles
 ---
 
-# Методы {#methods}
+# API methods {#methods}
 
-## Информация о профиле пользователя {#get-profile}
+## GET user {#get-profile}
 
-Данный метод возвращает указанный профиль
+Get user profile
 
-### Параметры запроса {#param-req}
+### Request parameters {#param-req}
 
-| Тип | Путь        | Результат	                   |
-|-----|-------------|------------------------------|
-| GET | /users/:id	 | [UserProfile](#userprofile)	 |
+| Type | Endpoint    | Result                      |
+|------|-------------|-----------------------------|
+| GET  | /users/:id	 | [UserProfile](#UserProfile) |
 
-# Типы данных {#types}
+# Data types {#types}
 
 ## UserProfile
 
-| 	Поле	              | 	Тип			                                        | 	Описание	                  |
-|---------------------|------------------------------------------------|-----------------------------|
-| 	username	          | 	строка	                                       | Имя пользователя            |
-| 	discriminator	     | строка                                         | Дискриминатор пользователя	 |
-| avatar?	            | строка	                                        | Аватар	                     |
-| id	                 | строка	                                        | ID пользователя	            |
-| 	badges	            | массив [UserBadge](#userbadge)                 | Значки пользователя	        |
-| bots	               | массив [PartialBot](/api/bots#ResourceBot)     | Боты пользователя	          |
-| 	servers	           | 	[PartialServer](/api/servers/#ResourceServer) | Сервера пользователя	       |
-| 	socials?	          | объект [UserLinkTypes](#UserLinkTypes)         | Ссылки пользователя		       |
-| 	description?	      | строка                                         | Описание профиля            |
-| 	shortDescription?	 | строка	                                        | Короткое описание профиля	  |
-| 	status?	           | строка	                                        | Статус пользователя	        |
-| 	shortDomain?	      | строка                                         | Короткая ссылка	            |
+| Property          | Type                                          | Description                     |
+|-------------------|-----------------------------------------------|---------------------------------|
+| username          | string                                        | Username                        |
+| discriminator     | string                                        | User discriminator (deprecated) |
+| avatar?           | string                                        | User avatar                     |
+| id                | string                                        | User ID                         |
+| badges            | array of [UserBadge](#UserBadge)              | User badges                     |
+| bots              | array of [PartialBot](/api/bots#ResourceBot)  | User bots                       |
+| servers           | [PartialServer](/api/servers/#ResourceServer) | User servers                    |
+| socials?          | [UserLinkTypes](#UserLinkTypes)               | User social links               |
+| description?      | string                                        | Profile description             |
+| shortDescription? | string                                        | Short profile description       |
 
-  
+---
+
+## PartialUser
+
+Same as [UserProfile](#UserProfile), but without `badges` `bots` `servers` properties.
+
 ---
 
 ## UserBadge
 
-Знак профиля
+Profile badge
 
-| 	Поле	     | 	Тип			 | 	Описание	       |
-|------------|---------|------------------|
-| 	id	       | 	число	 | 	ID значка       |
-| name	      | строка  | Название значка  |
-| 	assetURL	 | строка  | Ссылка на иконку |
+| Field	   | Type   | Description    |
+|----------|--------|----------------|
+| id       | number | Badge ID       |
+| name     | string | Badge name     |
+| assetURL | string | Badge icon URL |
+
+---
 
 ## UserLinkTypes
 
-Тип ссылки
+Links to the user's social networks
 
-| Код	 | 	Имя	      | 	Описание	               |
-|------|------------|--------------------------|
-| 	0	  | 	Vk		      | 	vk.com	                 |
-| 	1	  | 	Telegram	 | 	t.me	                   |
-| 	2	  | 	Donate	   | Ссылка на пожертвование	 |
-| 	3	  | 	Git	      | Ссылка на Git профиль	   |
-| 4	   | Custom     | Своя ссылка	             |
+| Code | Name     | Description                |
+|------|----------|----------------------------|
+| 0    | Vk       | vk.com                     |
+| 1    | Telegram | t.me                       |
+| 2    | Donate   | Link to the donation page  |
+| 3    | Git      | Link to the git profile    |
+| 4    | Custom   | Link to the custom website |
 

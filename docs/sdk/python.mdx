@@ -1,19 +1,19 @@
 ---
 title: boticordpy
-description: Основная документация по библиотеке boticordpy
+description: Basic documentation for the boticordpy library
 slug: /sdk/boticordpy
 ---
 
-Простая для использования библиотека, созданная для упрощения взаимодействия с BotiCord API.
+An easy-to-use library designed to simplify interaction with the BotiCord API v3.
 
-[Репозиторий](https://github.com/boticord/boticordpy)
-[Документация](https://py.boticord.top)
+[GitHub repo](https://github.com/boticord/boticordpy)
+[Docs](https://py.boticord.top)
 [PyPi](https://pypi.org/project/boticordpy/)
 
 
-## Установка
+# Installation
 
-Используйте одну из этих команд для установки библиотеки:
+You can install the library in one of the following ways:
 
 ```
 pip install boticordpy
@@ -27,8 +27,8 @@ python3 -m pip install boticordpy
 pip install git+https://github.com/boticord/boticordpy
 ```
 
-# Использование
-Автоматическая публикация статистики (discord.py):
+# Usage
+Automatic statistics sending (for discord.py API library):
 
 ```python
 from discord.ext import commands
@@ -37,12 +37,12 @@ from boticordpy import BoticordClient
 bot = commands.Bot(command_prefix="!")
 
 
-# Функция, возвращающая статистику бота.
+# Function that returns statistics.
 async def get_stats():
     return {"servers": len(bot.guilds), "shards": None, "members": len(bot.users)}
 
 
-# Функция, вызываемае в случае успешной публикации статистики.
+# Function that will be called if the statistics are successfully sent.
 async def on_success_posting():
     print("wow stats posting works")
 
@@ -54,15 +54,15 @@ autopost = (
     boticord_client.autopost()
     .init_stats(get_stats)
     .on_success(on_success_posting)
-    .start("id_of_your_bot")  # <--- ID бота
+    .start("id_of_your_bot")  # <--- Bot ID
 )
 
-bot.run("bot token")  # <--- Токен бота
+bot.run("bot token")  # <--- Discord Bot token
 ```
 
-## Нужна помощь?
+## Need help?
 
-Если Вам нужна какая-либо помощь, то мы рекомендуем еще раз прочитать [документацию библиотеки](https://py.boticord.top/).
+If you need any help, we recommend you to read the [library documentation](https://py.boticord.top/) again.
 
-Вы можете найти нас на [сервере поддержки сервиса](https://boticord.top/discord).
-Разработчик библиотеки: [`@Marakarka#0575`](https://boticord.top/profile/585766846268047370)
+You can find us on [BotiCord support server](https://get.boticord.top/support).
+Library developer: [`@Marakarka#0575`](https://boticord.top/profile/585766846268047370)
