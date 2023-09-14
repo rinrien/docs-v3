@@ -47,20 +47,6 @@ module.exports = {
                     label: 'SDK',
                 },
                 {
-                    type: 'localeDropdown',
-                    position: 'right',
-                    dropdownItemsAfter: [
-                        {
-                            type: 'html',
-                            value: '<hr style="margin: 0.3rem 0;">',
-                        },
-                        {
-                            href: '/contributing/#translate',
-                            label: 'Help Us Translate',
-                        },
-                    ],
-                },
-                {
                     href: 'https://github.com/boticord',
                     position: 'right',
                     className: 'header-github-link',
@@ -123,29 +109,14 @@ module.exports = {
                     sidebarPath: require.resolve('./sidebars.js'),
                     routeBasePath: '/',
                     showLastUpdateAuthor: true,
-                    showLastUpdateTime: true
+                    showLastUpdateTime: true,
+                    editUrl: "https://github.com/boticord/docs-v3/edit/main/",
                 },
                 theme: {
                     customCss: require.resolve('./src/css/custom.css'),
                 },
             },
         ],
-        // [
-        //   'redocusaurus',
-        //   {
-        //     debug: Boolean(process.env.DEBUG || process.env.CI),
-        //     specs: [
-        //       {
-        //         spec: 'https://api.revolt.chat/openapi.json',
-        //         route: '/api/',
-        //       }
-        //     ],
-        //     theme: {
-        //       primaryColor: '#1890ff',
-        //       redocOptions: { hideDownloadButton: false },
-        //     },
-        //   },
-        // ]
     ],
     themes: [
         [
